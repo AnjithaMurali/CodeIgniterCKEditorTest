@@ -46,10 +46,10 @@ class Content_model extends MY_Model
 	function insert_data($arr_data=NULL)
 	{
 
-		echo "inside modl";
-		$success	= $this->insert($arr_data, true);
+		$success	= $this->db->insert('content', $arr_data);
 		if($success)	   
-		 return $this->db->insert_id();
+		 //return $this->db->insert_id();
+			return TRUE;
 		else
 		 return FALSE;  
 		

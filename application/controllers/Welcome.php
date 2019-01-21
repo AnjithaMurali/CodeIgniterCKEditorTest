@@ -47,9 +47,8 @@ class Welcome extends CI_Controller {
 		$this->data['inserted'] = false;
 		$this->data['error_msg'] = '';
 
-		if($this->input->post('Save'))
+		if($this->input->post('submit'))
 		{
-
 			$arr_validate = array(
                array(
                      'field'   => 'content',
@@ -58,21 +57,24 @@ class Welcome extends CI_Controller {
 				)            
            );
 
-		   //$this->form_validation->set_rules($arr_validate); 
+		   $this->form_validation->set_rules($arr_validate); 
 		   if ($this->form_validation->run() === TRUE)
 		   {
 			   	//echo $_POST;
 			   	$arr_data = $_POST;
 			    $arr_where = array('content' => $arr_data["content"]);
-			    echo $arr_where;
+			    print_r ($arr_where);
 			    $this->data['form_data'] = $arr_where;
 			   	if($this->content->insert_data($arr_where)){
 			   		$insertStatus = 'true';
 			   		$this->data['inserted'] = true; 
 			   	}
+			   //$this->load->view('test');
 		   }
 		   else{
+		   		echo validation_errors();
 		   		$this->data['error_msg']   = validation_errors();
+		   		$this->load->view('test');
 		   }
 		}
 		$this->load->view('welcome_message', $this->data);
